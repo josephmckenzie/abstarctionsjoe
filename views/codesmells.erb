@@ -1,0 +1,426 @@
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Abstractions
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Home</a>
+                    </li>
+                    <li class="active">Code Smells</li>
+                </ol>
+                <p>
+                    One of the talks from Abstractions that i really liked was a talk given by Sandi Metz on code smells. Code smells are bits of code that well smell ( ie: that could use some refactoring or something along the lines) There a are quite a few things you can do to prevent code smells.Some of the categories below will teach what to look for and how to prevent stinky smelly code.One of the reasons I liked her talk was of course because I know ruby and it was a talk given on ruby :) . If you look through what i have below and still have questions feel free to <a href="/contact">Contact me</a>
+                </p>
+            </div>
+        </div>
+                    <p>
+        <!-- /.row -->
+
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Couplers</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                               <ul>
+                                        <li>
+                                            <p>
+                                                The smells in this group contribute to excessive coupling between classes or will show what happens if coupling is replaced by excessive delegation.
+                                            </p>
+                                                <ul>
+                                                        <b><li>Feature Envy: </li></b>
+                                                            <p> 
+                                                                Reasons for the Problem:
+
+                                                                This occurs after fields are moved to a data class. If this is the case, you may want to move the operations on data to this class as well.
+                                                            </p>
+                                                            <p>
+                                                                Treatment:
+
+                                                                As a basic rule, if things change at the same time, you should keep them in the same place. Usually data and functions that use this data are changed together (although exceptions are possible).
+                                                            </p>
+                                                        <li>Inappropriate Intimacy</li>
+                                                            <p>
+                                                                Reasons for the Problem:
+
+                                                                Keep a close eye on classes that spend too much time together.A good class should know as little about each other as possible. Such classes are easier to maintain and reuse.
+                                                            </p>
+                                                            <p>
+                                                                Treatment:
+
+                                                                The simplest solution is to use Move Method and Move Field to move parts of one class to the class in which those parts are used. But this only works only if the first class truly does not need any of these parts.
+                                                            </p>
+
+                                                        <b><li>Middle Man</li></b>
+                                                            <p>
+                                                                Reasons for the Problem:
+                                                                
+                                                                In some cases this code smell can be the result of over elimination of Message Chains.
+                                                                In other cases, it can be the result of the useful work of a class being gradually moved to other classes. The class remains as an empty shell that does not do anything other than delegate.
+                                                            </p>
+                                                            <p>
+                                                                
+                                                                Treatment:
+                                                                If most of a method's classes delegate to another class, Remove Middle Man is in order.
+                                                            </p>
+                                                            <p>
+
+                                                                Payoff:
+                                                                Less bulky code.
+                                                            </p>
+
+                                                       <b><li> Incomplete Library Class</li></b>
+                                                        <p>
+                                                            Signs and Symptoms:
+                                                            Sooner or later, libraries stop meeting the users need. The only solution to the problem changing the library is nearly impossible since the library is read-only.
+                                                        </p>
+                                                        <p>
+                                                            Reasons for the Problem:
+                                                            The library's author has not provided the features you need or will not implement them.
+                                                        </p>
+                                                        <p>
+                                                            Treatment:
+                                                            To introduce a few methods to a library class, use Introduce Foreign Method.
+                                                            For big changes in a class library, use Introduce Local Extension.
+                                                        </p>
+                                                        <p>
+                                                            Payoff:
+                                                            Reduces code duplication . Instead of duplicating code you can still use part of the libraries 
+                                                        </p>
+                                                        <p>
+                                                            When to Ignore:
+                                                            Extending a library can generate additional work if the changes to the library involve major changes in code.
+                                                        </p>
+
+                                                </ul>
+
+                                        </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Bloaters</a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                            <ul>
+                                <li>
+                                    <p>
+                                        Bloaters are code, methods and or classes that have increased to such big proportions that they are hard to work with. Most of the time these smells do not show up right away, rather they build up over time as the program evolves especially when no ones makes an effort to get rid of them.
+                                    </p>
+                                        <ul>
+                                            <b><li>Long Method</li></b>
+                                                <p>
+                                                    Signs and Symptoms:
+                                                    A method contains too many lines of code. As a general rule, any method longer than ten lines should make you start asking questions.
+                                                </p>
+                                                <p>
+                                                    Reasons for the Problem:
+
+                                                    Something is always being added to a method but nothing is ever taken out. Since it's easier to write code than to read it, most of the time this "smell" remains unnoticed until the method becomes really huge and over sized.
+                                                </p>
+                                                <p>
+                                                    Treatment
+
+                                                    As a general rule of thumb, if you feel the need to comment on something inside a method, you should take this code and put it inside of a new method. Even a single line can and should be split off into a separate method,if it requires explanations. 
+                                                </p>
+
+                                           <b><li>Large Class</li></b>
+                                               <p>
+                                                    Reasons for the Problem:
+                                                    Classes usually start small. But over time, they get bigger as the program grows.
+                                                    As is the case with long methods as well, programmers usually find it mentally less taxing to put a new feature in an existing class.
+                                                </p>
+                                                <p>    
+                                                    Treatment:
+                                                    When a class is has too many functions , think about splitting it up:
+                                               </p>
+                                            <b><li>Long Parameter List</li></b>
+                                                <p>
+                                                    Signs and Symptoms:
+                                                   < More than three or four parameters for a method
+                                                </p>
+                                                <p>
+                                                    Reasons for the Problem:
+                                                    A long list of parameters might happen after several different algorithms are merged in one single method.
+                                                </p>
+                                                <p>
+                                                    Treatment:
+                                                    Check what values are passed to parameters. If some of the arguments are just results of method calls of another object, use Replace Parameter with Method Call. This object can be placed in the field of its own class or passed as a method parameter
+                                                </p>
+                                                <p>
+                                                    Payoff:
+
+                                                    More readable, shorter code.
+                                                    Refactoring may reveal previously unnoticed duplicated code.
+                                                </p>
+                                                <p>
+                                                    When to Ignore:
+
+                                                    Do not get rid of parameters if doing so would cause unwanted dependencies between classes.
+                                                </p>
+
+                                            <b><li>Data Clumps</li></b>
+                                                <p>
+                                                    Signs and Symptoms:
+
+                                                    Sometimes different parts of  code contain identical groups of variables (such as parameters for connecting to a database). These data clumps should be turned into their classes.
+                                                </p>
+                                                <p>
+                                                    Reasons for the Problem:
+                                                    Often these data groups are due to poor program structure or copy and pasting programming.
+
+                                                    If you want to make sure whether or not some data is a data clump, just delete one of the data values and see whether the other values still make sense. If not, It's a pretty good sign that this group of variables should be combined into their own object(s).
+                                                </p>
+                                                <p>
+                                                    Treatment:
+                                                    If repeating data comprises the fields of a class, use the Extract Class to move the fields to their own classes.If the same data clumps are passed in the parameters of methods, use Introduce Parameter Object to set them off as a class.
+                                                    If some of the data is passed to other methods, think about passing the entire data object to the method instead of just individual fields. 
+                                                </p>
+                                                <p>
+                                                    Payoff:
+                                                    Improves understanding and organization of code. Operations on particular data are now gathered in a single place, instead of haphazardly throughout the code, it reduces code size.
+                                                </p>
+
+
+                                        
+                                
+                                        </ul>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Change Preventers</a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body">
+                            <ul>
+                                <li>
+            <p>
+                These smells mean that if you need to change something in one place in your code, you have to make many changes in other places too.
+            </p>
+            <ul>
+                <b><li>Divergent Change</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        You find yourself having to change many unrelated methods when you make changes to a class. For example, when adding a new product type you have to change the methods for finding, displaying, and ordering products.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        Often these divergent modifications are due to poor program structure or copy and pasting programming.
+                    </p>
+                    <p>
+                        Treatment:
+                        Split up the behavior of the class via Extract Class.
+                        If different classes have the same behavior, you may want to combine the classes through inheritance (Extract Superclass and Extract Subclass).
+                    </p>
+                    <p>
+                        Payoff:
+                        Improves code organization.
+                        Reduces code duplication.
+                        Simplifies support.
+                    </p>
+
+                <b><li>Shotgun Surgery</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        Making any modifications requires that you make many small changes to many different classes.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        A single responsibility has been split up among a large number of classes. This can happen after overzealous Divergent Change.
+                    </p>
+                    <p>
+                        Treatment:
+                        Use the Move Method and Move Field to move existing classes behaviors into a single class. If there is no class appropriate for this, create a brand new one.If moving code to the same class leaves the original classes almost empty, try to get rid of those classes.
+                    </p>
+                    <p>
+                        Payoff:
+                        Better organization.
+                        Less code duplication.
+                        Easier maintenance.
+                    </p>
+
+                <b><li>Parallel Inheritance Hierarchies</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        Whenever you create a subclass for a class, you find yourself needing to create a subclass for another class.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        All was well as long as the hierarchy stayed small. But with new classes being added, making changes has become harder and harder.
+                    </p>
+                    <p>
+                        Treatment:
+                        You may de-duplicate parallel class hierarchies in two steps. First, make instances of one hierarchy refer to instances of another hierarchy. Then, remove the hierarchy in the referred class, by using Move Method and Move Field.
+                    </p>
+                    <p>
+                        Payoff:
+                        Reduces code duplication.
+                        Can improve organization of code.
+                    </p>
+                    <p>
+                        When to Ignore:
+                        Sometimes having parallel class hierarchies is just a way to avoid even bigger mess with program architecture. If you find that your attempts to de-duplicate hierarchies produce even uglier code, just step out, revert all of your changes and get used to that code.
+                    </p>
+
+            </ul>
+
+        </li>
+        </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Dispensables</a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse">
+                            <div class="panel-body">
+                        <ul>
+                                
+        <li>
+            <p>
+                A dispensable is something pointless and unneeded whose absence would make the code cleaner, more efficient and easier to understand or read.
+            </p>
+            <ul>
+                <b><li>Comments</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        A function is filled with explanatory comments.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        Comments are usually created with the best of reasons but when the author realizes that his or her code is not that obvious. In these type of cases, comments are code that could probably be improved. The best comment is a good name for a method or class.If you feel that some code cannot be understood correctly without comments, try to change the code structure in a way that makes comments unnecessary.
+                    </p>
+                    <p>
+                        Treatment:
+                        If a comment is intended to explain a complex expression, the expression should be split into understandable subexpressions using Extract Variable.If a comment explains a section of code, this section can be turned into a separate method via Extract Method. The name of the new method can be taken from the comment text itself, most likely.If a method has already been extracted, but comments are still necessary to explain what the method does, give the method a self-explanatory name. Use Rename Method for this.If you need to assert rules about a state that is necessary for the system to work, use Introduce Assertion.
+                    </p>
+                    <p>
+                        Payoff:
+                        Code becomes more intuitive and obvious.
+                    </p>
+                    <p>
+                        When to Ignore:
+                        Comments can sometimes be useful:
+                        For example when explaining why something is being implemented in a certain way or when explaining complex algorithms
+                    </p>
+
+                <b><li>Duplicate Code</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        Two code fragments look pretty darn identical.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        Duplication usually occurs when multiple programmers are working on different parts of the same program at the same time. Since they are working on different stuff, they may be unaware that their colleagues have already written similar code that could be used for their own purpose.There is also a more subtle duplication, when specific parts of code look kinda different but actually perform the same job. This kind of duplication can be hard to find and fix.
+                    </p>
+                    <p>
+                        Treatment:
+                        If the same code is found in two or more methods in the same class: use the extract method and call the new method in both places.
+                    </p>
+                    <p>
+                        Payoff:
+                        Merging duplicate code simplifies the structure of your code and to make it shorter.
+                    </p>
+                    <p>
+                        When to Ignore:
+                        In some rare cases, merging two identical pieces of code can make the code less intuitive.
+                    </p>
+
+
+                <b><li>Lazy Class</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        Understanding and maintaining classes always costs time and money. So if a class doesn't do enough to earn your attention, it should be deleted.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        Perhaps a class was designed to be fully functional but after some of the refactoring it has become ridiculously small.Or perhaps it was designed to support future development work that never got done.
+                    </p>
+                    <p>
+                        Treatment:
+                        Components that are near-useless should be given the Inline Class treatment,for subclasses with few functions, try Collapse Hierarchy.
+                    </p>
+                    <p>
+                        Payoff:
+                        Reduced code size.
+                        Easier maintenance.
+                    </p>
+                    <p>
+                        When to Ignore:
+                        Sometimes a Lazy Class is created in order to delineate intentions for future development, In this case, try to maintain a balance between clarity and simplicity in your code.
+                    </p>
+
+                <b><li>Data Class</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        A data class refers to a class that contains only fields and other crude methods for accessing them. These are simply containers for data used by other classes,these classes do not contain any additional functionality and cant operate on any of the data that they own.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        It's a normal thing when a newly created class contains only a few public fields, but the true power in the objects is that they can contain behavior types or operations on their data type.
+                    </p>
+                    <p>
+                        Treatment:
+                        If a class contains public fields, use Encapsulate Field to hide them from direct access and require that access be performed via getters and setters only.
+                    </p>
+                    <p>
+                        Payoff:
+                        Improves the understanding and organization of the code. Operations on particular data are now gathered in one place, instead of being haphazardly in the code.
+                    </p>
+
+                    <p> 
+                <b><li>Dead Code</li></b>
+                    <p>
+                        Signs and Symptoms:
+                        A variable, parameter, field, method or class is no longer used most of the time because it is obsolete.
+                    </p>
+                    <p>
+                        Reasons for the Problem:
+                        When requirements for the software have changed or corrections have been made, nobody had time to clean up the old code.Such code could also be found in complex conditionals, when one of the branches becomes unreachable (due to error or other circumstances).
+                    </p>
+                    <p>
+                        Treatment:
+                        The quickest way to find dead code is to use a good code editor, and delete all unused code and unneeded files.
+                    </p>
+                    <p>
+                        Payoff:
+                        Reduced the size of code size, along more simpler support.
+                    </p>
+
+                </ul>
+        </li>
+        </ul>
+        </div>
+    </div>
+</div>
+                   
